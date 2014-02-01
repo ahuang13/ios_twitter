@@ -83,7 +83,7 @@
     // Initialize the cell contents with the Tweet.
     NSLog(@"[%d] %@ : %@", indexPath.row, tweet.name, tweet.text);
     cell.nameLabel.text = tweet.name;
-    cell.textLabel.text = tweet.text;
+    cell.tweetLabel.text = tweet.text;
     cell.profileImageView.image = self.defaultProfilePic;
     
     return cell;

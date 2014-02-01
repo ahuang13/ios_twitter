@@ -56,7 +56,7 @@
             <connections>
                 <outlet property="nameLabel" destination="IMM-dy-zzq" id="wIh-SR-Hcp"/>
                 <outlet property="profileImageView" destination="7ki-9M-Wjx" id="O2w-kq-qKv"/>
-                <outlet property="textLabel" destination="U2X-PO-Frl" id="k0w-KT-h0j"/>
+                <outlet property="tweetLabel" destination="U2X-PO-Frl" id="BqN-fV-GRS"/>
             </connections>
         </tableViewCell>
     </objects>
