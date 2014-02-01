@@ -14,7 +14,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="190"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7ki-9M-Wjx">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="145-persondot" translatesAutoresizingMaskIntoConstraints="NO" id="7ki-9M-Wjx">
                         <rect key="frame" x="8" y="8" width="40" height="40"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <constraints>
@@ -60,4 +60,7 @@
             </connections>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="145-persondot" width="24" height="26"/>
+    </resources>
 </document>

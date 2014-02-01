@@ -8,6 +8,7 @@
 
 #import "TimelineVC.h"
 #import "TweetCell.h"
+#import "UIImageView+AFNetworking.h"
 
 @interface TimelineVC ()
 
@@ -16,23 +17,15 @@
 - (void)onSignOutButton;
 - (void)reload;
 
-@property (nonatomic, strong, readonly) UIImage *defaultProfilePic;
-
 @end
 
 @implementation TimelineVC
-
-- (void)initialize
-{
-    _defaultProfilePic = [UIImage imageNamed: @"145-persondot.png"];
-}
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
     if (self) {
         self.title = @"Twitter";
-        [self initialize];
         [self reload];
     }
     return self;
@@ -84,7 +77,7 @@
     NSLog(@"[%d] %@ : %@", indexPath.row, tweet.name, tweet.text);
     cell.nameLabel.text = tweet.name;
     cell.tweetLabel.text = tweet.text;
-    cell.profileImageView.image = self.defaultProfilePic;
+    [cell.profileImageView setImageWithURL:tweet.profileImageUrl];
     
     return cell;
 }
