@@ -13,7 +13,10 @@
 @property (nonatomic, strong, readonly) NSString *name;
 @property (nonatomic, strong, readonly) NSString *text;
 @property (nonatomic, strong, readonly) NSURL *profileImageUrl;
+@property (nonatomic, strong, readonly) NSDate *createdAt;
 
 + (NSMutableArray *)tweetsWithArray:(NSArray *)array;
+
+- (NSString *)timestamp;
 
 @end

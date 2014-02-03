@@ -22,18 +22,15 @@
                             <constraint firstAttribute="width" constant="40" id="SxT-nQ-RPG"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bill Gates" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IMM-dy-zzq">
-                        <rect key="frame" x="56" y="12" width="256" height="15"/>
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Bill Gates" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IMM-dy-zzq">
+                        <rect key="frame" x="56" y="12" width="206" height="14"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="15" id="s5V-rz-AYy"/>
-                        </constraints>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="11"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="256" translatesAutoresizingMaskIntoConstraints="NO" id="U2X-PO-Frl">
-                        <rect key="frame" x="56" y="35" width="256" height="129"/>
+                        <rect key="frame" x="56" y="34" width="256" height="130"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <string key="text">My favorite stat: 20% of children born in 1960 died before their 5th birthday, but today that number is down to 6%: http://t.co/rlqavPM24h</string>
                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
@@ -73,7 +70,7 @@
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
                     </button>
-                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12/21/13" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Qa-20-KFP">
+                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="12/21/13" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Qa-20-KFP">
                         <rect key="frame" x="270" y="12" width="42" height="15"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <constraints>
@@ -98,16 +95,17 @@
                     <constraint firstItem="9Qa-20-KFP" firstAttribute="top" secondItem="yTH-jX-YcG" secondAttribute="top" constant="12" id="cvg-gq-G53"/>
                     <constraint firstItem="lJH-jY-2Kc" firstAttribute="leading" secondItem="yTH-jX-YcG" secondAttribute="leading" constant="56" id="gPe-Db-ROk"/>
                     <constraint firstAttribute="bottom" secondItem="lJH-jY-2Kc" secondAttribute="bottom" constant="8" id="h6U-6x-fnk"/>
-                    <constraint firstItem="U2X-PO-Frl" firstAttribute="top" secondItem="IMM-dy-zzq" secondAttribute="bottom" constant="8" id="hX1-Ji-Q9r"/>
                     <constraint firstItem="G51-L4-3Nj" firstAttribute="leading" secondItem="lJH-jY-2Kc" secondAttribute="trailing" constant="39" id="iQQ-AV-Vre"/>
+                    <constraint firstItem="U2X-PO-Frl" firstAttribute="top" secondItem="IMM-dy-zzq" secondAttribute="bottom" constant="8" id="lLz-Ly-gYy"/>
+                    <constraint firstItem="9Qa-20-KFP" firstAttribute="leading" secondItem="IMM-dy-zzq" secondAttribute="trailing" constant="8" id="o6O-aa-llL"/>
                     <constraint firstItem="hah-bf-jDO" firstAttribute="leading" secondItem="G51-L4-3Nj" secondAttribute="trailing" constant="39" id="wep-vj-egT"/>
                     <constraint firstItem="U2X-PO-Frl" firstAttribute="leading" secondItem="7ki-9M-Wjx" secondAttribute="trailing" constant="8" id="yLG-vZ-Abl"/>
-                    <constraint firstAttribute="trailing" secondItem="IMM-dy-zzq" secondAttribute="trailing" constant="8" id="yUo-vP-6E9"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="nameLabel" destination="IMM-dy-zzq" id="wIh-SR-Hcp"/>
                 <outlet property="profileImageView" destination="7ki-9M-Wjx" id="O2w-kq-qKv"/>
+                <outlet property="timestampLabel" destination="9Qa-20-KFP" id="RPK-Jg-0NR"/>
                 <outlet property="tweetLabel" destination="U2X-PO-Frl" id="BqN-fV-GRS"/>
             </connections>
         </tableViewCell>

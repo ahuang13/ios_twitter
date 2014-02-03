@@ -77,6 +77,7 @@
     NSLog(@"[%d] %@ : %@", indexPath.row, tweet.name, tweet.text);
     cell.nameLabel.text = tweet.name;
     cell.tweetLabel.text = tweet.text;
+    cell.timestampLabel.text = [tweet timestamp];
     [cell.profileImageView setImageWithURL:tweet.profileImageUrl];
     
     return cell;
