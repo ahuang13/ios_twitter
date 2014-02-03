@@ -10,11 +10,6 @@
 
 @implementation Tweet
 
-const int SECONDS_IN_MINUTE = 60;
-const int SECONDS_IN_HOUR = SECONDS_IN_MINUTE * 60;
-const int SECONDS_IN_DAY = SECONDS_IN_HOUR * 24;
-const int SECONDS_IN_WEEK = SECONDS_IN_DAY * 7;
-
 - (NSString *)name {
     return [self.data valueOrNilForKeyPath:@"user.name"];
 }
@@ -39,29 +34,6 @@ const int SECONDS_IN_WEEK = SECONDS_IN_DAY * 7;
     NSDate *createdAtDate = [formatter dateFromString:createdAtString];
     
     return createdAtDate;
-}
-
-- (NSString *)timestamp {
-    
-    NSDate *createdAtDate = self.createdAt;
-    int secondsAgo = -1 * [createdAtDate timeIntervalSinceNow];
-    
-    NSString *timestamp;
-    if ( secondsAgo < SECONDS_IN_MINUTE ) {
-        timestamp = [NSString stringWithFormat:@"%ds", secondsAgo];
-    } else if (secondsAgo < SECONDS_IN_HOUR) {
-        int minutesAgo = secondsAgo / SECONDS_IN_MINUTE;
-        timestamp = [NSString stringWithFormat:@"%dm", minutesAgo];
-    } else if (secondsAgo < SECONDS_IN_DAY) {
-        int hoursAgo = secondsAgo / SECONDS_IN_HOUR;
-        timestamp = [NSString stringWithFormat:@"%dh", hoursAgo];
-    } else {
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateStyle:NSDateFormatterShortStyle];
-        timestamp = [formatter stringFromDate:createdAtDate];
-    }
-    
-    return timestamp;
 }
 
 + (NSMutableArray *)tweetsWithArray:(NSArray *)array {

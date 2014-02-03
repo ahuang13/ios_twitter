@@ -30,6 +30,7 @@
 		42CC89B917B0D7DD00B6D34B /* NSDictionary+CPAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 42CC89B817B0D7DD00B6D34B /* NSDictionary+CPAdditions.m */; };
 		42CC89BF17B0F02600B6D34B /* TweetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 42CC89BE17B0F02600B6D34B /* TweetCell.m */; };
 		4A2D263314064B2DA5BDFE0E /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCC1DF52D3B94E9285F4C2F7 /* libPods.a */; };
+		92E77FF018A055EC00CD2F19 /* NSDate+Timestamp.m in Sources */ = {isa = PBXBuildFile; fileRef = 92E77FEF18A055EC00CD2F19 /* NSDate+Timestamp.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +80,8 @@
 		42CC89BE17B0F02600B6D34B /* TweetCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TweetCell.m; sourceTree = "<group>"; };
 		42CC89C017B0F03E00B6D34B /* TweetCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TweetCell.xib; sourceTree = "<group>"; };
 		6D8D3D6E0083406F961146BD /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
+		92E77FEE18A055EC00CD2F19 /* NSDate+Timestamp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Timestamp.h"; sourceTree = "<group>"; };
+		92E77FEF18A055EC00CD2F19 /* NSDate+Timestamp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Timestamp.m"; sourceTree = "<group>"; };
 		CCC1DF52D3B94E9285F4C2F7 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -230,6 +233,8 @@
 		42CC89B617B0D7C400B6D34B /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				92E77FEE18A055EC00CD2F19 /* NSDate+Timestamp.h */,
+				92E77FEF18A055EC00CD2F19 /* NSDate+Timestamp.m */,
 				42CC89B717B0D7DD00B6D34B /* NSDictionary+CPAdditions.h */,
 				42CC89B817B0D7DD00B6D34B /* NSDictionary+CPAdditions.m */,
 			);
@@ -378,6 +383,7 @@
 			files = (
 				42CC89B917B0D7DD00B6D34B /* NSDictionary+CPAdditions.m in Sources */,
 				42CC89AA17B0C31900B6D34B /* SignedOutVC.m in Sources */,
+				92E77FF018A055EC00CD2F19 /* NSDate+Timestamp.m in Sources */,
 				42CC896117AF871500B6D34B /* TwitterClient.m in Sources */,
 				42CC89BF17B0F02600B6D34B /* TweetCell.m in Sources */,
 				42CC89AE17B0C7A600B6D34B /* User.m in Sources */,

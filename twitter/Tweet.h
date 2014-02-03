@@ -17,6 +17,4 @@
 
 + (NSMutableArray *)tweetsWithArray:(NSArray *)array;
 
-- (NSString *)timestamp;
-
 @end

@@ -9,6 +9,7 @@
 #import "TimelineVC.h"
 #import "TweetCell.h"
 #import "UIImageView+AFNetworking.h"
+#import "NSDate+Timestamp.h"
 
 @interface TimelineVC ()
 
@@ -77,7 +78,7 @@
     NSLog(@"[%d] %@ : %@", indexPath.row, tweet.name, tweet.text);
     cell.nameLabel.text = tweet.name;
     cell.tweetLabel.text = tweet.text;
-    cell.timestampLabel.text = [tweet timestamp];
+    cell.timestampLabel.text = [[tweet createdAt] formattedTimeAgo];
     [cell.profileImageView setImageWithURL:tweet.profileImageUrl];
     
     return cell;
