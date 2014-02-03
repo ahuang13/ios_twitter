@@ -156,7 +156,7 @@
                                           attributes:attributes
                                              context:nil];
     
-    return ceil(boundingRect.size.height) + 43;
+    return ceil(boundingRect.size.height) + 74;
 }
 
 //- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
