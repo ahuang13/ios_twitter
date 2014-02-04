@@ -11,11 +11,24 @@
 @implementation Tweet
 
 - (NSString *)name {
-    return [self.data valueOrNilForKeyPath:@"user.name"];
+    
+    NSString *name = [self.data valueOrNilForKeyPath:@"retweeted_status.user.name"];
+    if (name == nil) {
+        name = [self.data valueOrNilForKeyPath:@"user.name"];
+    }
+    
+    return name;
 }
 
 - (NSString *)screenName {
-    return [self.data valueOrNilForKeyPath:@"user.screen_name"];
+    
+    NSString *screenName = [self.data valueOrNilForKeyPath:@"retweeted_status.user.screen_name"];
+    
+    if (screenName == nil) {
+        screenName = [self.data valueOrNilForKeyPath:@"user.screen_name"];
+    }
+    
+    return screenName;
 }
 
 - (NSAttributedString *)nameAndScreenName {
@@ -39,7 +52,13 @@
 }
 
 - (NSURL *)profileImageUrl {
-    NSString *profileImageUrlString = [self.data valueOrNilForKeyPath:@"user.profile_image_url"];
+    
+    NSString *profileImageUrlString = [self.data valueOrNilForKeyPath:@"retweeted_status.user.profile_image_url"];
+    
+    if (profileImageUrlString == nil) {
+        profileImageUrlString = [self.data valueOrNilForKeyPath:@"user.profile_image_url"];
+    }
+    
     return [NSURL URLWithString:profileImageUrlString];
 }
 
