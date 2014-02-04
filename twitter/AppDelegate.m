@@ -117,10 +117,27 @@
 - (UINavigationController *)timelineNVC {
     if (!_timelineNVC) {
         TimelineVC *timelineVC = [[TimelineVC alloc] init];
-        _timelineNVC = [[UINavigationController alloc] initWithRootViewController:timelineVC];
+        _timelineNVC = [AppDelegate navigationControllerWithRoot:timelineVC];
     }
     
     return _timelineNVC;
+}
+
+// Allocates and initializes a navigation controller with a solid blue
+// navigation bar and white text.
++ (UINavigationController *)navigationControllerWithRoot:(UIViewController *)vc {
+    
+    UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:vc];
+    
+    UIColor *twitterBlue = [[UIColor alloc] initWithRed:0.25 green:0.6 blue:1.0 alpha:0];
+    
+    nvc.navigationBar.barTintColor = twitterBlue;
+    nvc.navigationBar.tintColor = [UIColor whiteColor];
+    [nvc.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
+    nvc.navigationBar.translucent = NO;
+    nvc.navigationBar.opaque = YES;
+    
+    return nvc;
 }
 
 - (SignedOutVC *)signedOutVC {

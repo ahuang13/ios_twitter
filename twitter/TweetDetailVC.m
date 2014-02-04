@@ -29,9 +29,14 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        [self initialize];
     }
     return self;
+}
+
+- (void)initialize
+{
+    self.navigationItem.title = @"Tweet";
 }
 
 - (void)viewDidLoad
