@@ -10,6 +10,11 @@
 
 @implementation Tweet
 
+- (NSString *)originalName {
+    return [self.data valueOrNilForKeyPath:@"user.name"];
+    
+}
+
 - (NSString *)name {
     
     NSString *name = [self.data valueOrNilForKeyPath:@"retweeted_status.user.name"];
@@ -37,7 +42,7 @@
     
     NSRange nameRange = NSMakeRange(0, self.name.length);
     NSRange screenNameRange = NSMakeRange(self.name.length + 1, self.screenName.length + 1);
-
+    
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:unattributedString];
     [attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:nameRange];
     [attributedString addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:11] range:screenNameRange];
