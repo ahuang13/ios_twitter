@@ -80,6 +80,13 @@
     cell.tweetLabel.text = tweet.text;
     cell.timestampLabel.text = [[tweet createdAt] formattedTimeAgo];
     [cell.profileImageView setImageWithURL:tweet.profileImageUrl];
+    if (!tweet.isRetweet) {
+        cell.retweetedViewHeightConstraint.constant = 0;
+        cell.retweetedViewTopConstraint.constant = 0;
+    } else {
+        cell.retweetedViewHeightConstraint.constant = 18;
+        cell.retweetedViewTopConstraint.constant = 4;
+    }
     
     return cell;
 }
@@ -158,7 +165,23 @@
                                           attributes:attributes
                                              context:nil];
     
-    return ceil(boundingRect.size.height) + 74;
+    NSInteger height = ceil(boundingRect.size.height);
+    
+    // Add height for retweet label.
+    if (tweet.isRetweet) {
+        height += 4 + 18;
+    }
+    
+    // Add height for name labels.
+    height += 8 + 14;
+    
+    // Add height for tweet top margin.
+    height += -3;
+    
+    // Add height for bottom icons.
+    height += 8 + 10 + 8;
+
+    return height;
 }
 
 //- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

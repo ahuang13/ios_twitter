@@ -75,6 +75,11 @@
     return createdAtDate;
 }
 
+- (BOOL)isRetweet {
+    NSDictionary *retweetStatusDict = [self.data valueOrNilForKeyPath:@"retweeted_status"];
+    return (retweetStatusDict != nil);
+}
+
 + (NSMutableArray *)tweetsWithArray:(NSArray *)array {
     NSMutableArray *tweets = [[NSMutableArray alloc] initWithCapacity:array.count];
     for (NSDictionary *params in array) {
