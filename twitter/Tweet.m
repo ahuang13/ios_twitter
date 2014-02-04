@@ -14,6 +14,26 @@
     return [self.data valueOrNilForKeyPath:@"user.name"];
 }
 
+- (NSString *)screenName {
+    return [self.data valueOrNilForKeyPath:@"user.screen_name"];
+}
+
+- (NSAttributedString *)nameAndScreenName {
+    
+    NSString *unattributedString = [NSString stringWithFormat:@"%@ @%@", self.name, self.screenName];
+    
+    NSRange nameRange = NSMakeRange(0, self.name.length);
+    NSRange screenNameRange = NSMakeRange(self.name.length + 1, self.screenName.length + 1);
+
+    NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:unattributedString];
+    [attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:nameRange];
+    [attributedString addAttribute:NSFontAttributeName value:[UIFont boldSystemFontOfSize:11] range:screenNameRange];
+    [attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor grayColor] range:screenNameRange];
+    [attributedString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:11] range:screenNameRange];
+    
+    return attributedString;
+}
+
 - (NSString *)text {
     return [self.data valueOrNilForKeyPath:@"text"];
 }

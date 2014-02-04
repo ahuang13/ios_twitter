@@ -76,7 +76,7 @@
     
     // Initialize the cell contents with the Tweet.
     NSLog(@"[%d] %@ : %@", indexPath.row, tweet.name, tweet.text);
-    cell.nameLabel.text = tweet.name;
+    cell.nameLabel.attributedText = tweet.nameAndScreenName;
     cell.tweetLabel.text = tweet.text;
     cell.timestampLabel.text = [[tweet createdAt] formattedTimeAgo];
     [cell.profileImageView setImageWithURL:tweet.profileImageUrl];
