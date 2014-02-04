@@ -10,6 +10,7 @@
 #import "TweetCell.h"
 #import "UIImageView+AFNetworking.h"
 #import "NSDate+Timestamp.h"
+#import "TweetDetailVC.h"
 
 @interface TimelineVC ()
 
@@ -155,6 +156,10 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     NSLog(@"didSelectRowAtIndexPath = %d", indexPath.row);
+    
+    Tweet *tweet = self.tweets[indexPath.row];
+    TweetDetailVC *tweetDetailVC = [[TweetDetailVC alloc] initWithTweet:tweet];
+    [[self navigationController] pushViewController:tweetDetailVC animated:YES];
 }
 
 /*

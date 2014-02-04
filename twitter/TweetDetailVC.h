@@ -10,4 +10,6 @@
 
 @interface TweetDetailVC : UIViewController
 
+- (id)initWithTweet:(Tweet *)tweet;
+
 @end

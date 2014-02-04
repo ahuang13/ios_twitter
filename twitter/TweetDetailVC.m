@@ -10,9 +10,20 @@
 
 @interface TweetDetailVC ()
 
+@property Tweet *tweet;
+
 @end
 
 @implementation TweetDetailVC
+
+- (id)initWithTweet:(Tweet *)tweet
+{
+    self = [self initWithNibName:@"TweetDetailVC" bundle:nil];
+    if (self) {
+        self.tweet = tweet;
+    }
+    return self;
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -27,6 +38,8 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    NSLog(@"Tweet = %@", self.tweet);
 }
 
 - (void)didReceiveMemoryWarning
