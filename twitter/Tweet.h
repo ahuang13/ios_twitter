@@ -19,6 +19,9 @@
 @property (nonatomic, strong, readonly) NSDate *createdAt;
 @property (nonatomic, readonly) BOOL isRetweet;
 
+@property (nonatomic, strong, readonly) NSNumber *favoriteCount;
+@property (nonatomic, strong, readonly) NSNumber *retweetCount;
+
 + (NSMutableArray *)tweetsWithArray:(NSArray *)array;
 
 @end

@@ -82,7 +82,7 @@
     NSLog(@"[%d] %@ : %@", indexPath.row, tweet.name, tweet.text);
     cell.nameLabel.attributedText = tweet.nameAndScreenName;
     cell.tweetLabel.text = tweet.text;
-    cell.timestampLabel.text = [[tweet createdAt] formattedTimeAgo];
+    cell.timestampLabel.text = [tweet.createdAt formattedTimeAgo];
     [cell.profileImageView setImageWithURL:tweet.profileImageUrl];
     if (!tweet.isRetweet) {
         cell.retweetedViewHeightConstraint.constant = 0;

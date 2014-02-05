@@ -85,6 +85,14 @@
     return (retweetStatusDict != nil);
 }
 
+- (NSNumber *)favoriteCount {
+    return [self.data valueForKey:@"favorite_count"];
+}
+
+- (NSNumber *)retweetCount {
+    return [self.data valueForKey:@"retweet_count"];
+}
+
 + (NSMutableArray *)tweetsWithArray:(NSArray *)array {
     NSMutableArray *tweets = [[NSMutableArray alloc] initWithCapacity:array.count];
     for (NSDictionary *params in array) {
