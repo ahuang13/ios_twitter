@@ -7,6 +7,10 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ComposeVC">
             <connections>
+                <outlet property="nameLabel" destination="cxq-Cj-Gmu" id="GhR-CB-BfG"/>
+                <outlet property="profileImageView" destination="fs4-6r-kOa" id="R7f-HJ-cqm"/>
+                <outlet property="screenNameLabel" destination="di3-Fr-B7c" id="YX6-O2-THD"/>
+                <outlet property="tweetTextView" destination="1fg-vx-VpZ" id="RhA-hx-6kl"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>
         </placeholder>
