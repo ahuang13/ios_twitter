@@ -18,6 +18,8 @@
 
 @property (nonatomic, strong) NSMutableArray *tweets;
 
+@property BOOL isLoading;
+
 - (void)onSignOutButton;
 - (void)reload;
 
@@ -49,6 +51,10 @@
     // Initialize pull-to-refresh.
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(reload) forControlEvents:UIControlEventValueChanged];
+
+    if (self.isLoading) {
+        [self.refreshControl beginRefreshing];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -66,7 +72,15 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.tweets.count;
+    // Hide separator lines when there are no tweets.
+    NSInteger numberOfRows = self.tweets.count;
+    if (numberOfRows == 0) {
+        [tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+    } else {
+        [tableView setSeparatorStyle:UITableViewCellSeparatorStyleSingleLine];
+    }
+    
+    return numberOfRows;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -182,6 +196,7 @@
 
 - (void)reload
 {
+    self.isLoading = YES;
     [[TwitterClient instance] homeTimelineWithCount:20 sinceId:0 maxId:0 success:^(AFHTTPRequestOperation *operation, id response) {
         NSLog(@"%@", response);
         self.tweets = [Tweet tweetsWithArray:response];
