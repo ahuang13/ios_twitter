@@ -72,14 +72,10 @@
     // Get a reference to the TweetCell.
     TweetCell *cell = [TimelineVC nextTweetCellForTableView:tableView];
     
-    // UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    // UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
-    
     // Get the current Tweet.
     Tweet *tweet = self.tweets[indexPath.row];
     
     // Initialize the cell contents with the Tweet.
-    NSLog(@"[%d] %@ : %@", indexPath.row, tweet.name, tweet.text);
     cell.nameLabel.attributedText = tweet.nameAndScreenName;
     cell.tweetLabel.text = tweet.text;
     cell.timestampLabel.text = [tweet.createdAt formattedTimeAgo];
@@ -164,18 +160,6 @@
     TweetDetailVC *tweetDetailVC = [[TweetDetailVC alloc] initWithTweet:tweet];
     [[self navigationController] pushViewController:tweetDetailVC animated:YES];
 }
-
-/*
- #pragma mark - Navigation
- 
- // In a story board-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
- {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- 
- */
 
 #pragma mark - Private methods
 
