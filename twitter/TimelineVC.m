@@ -37,7 +37,9 @@
 {
     [super viewDidLoad];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Sign Out" style:UIBarButtonItemStylePlain target:self action:@selector(onSignOutButton)];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Sign Out" style:UIBarButtonItemStylePlain target:self action:@selector(onSignOutButton)];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"New" style:UIBarButtonItemStylePlain target:self action:@selector(onNewClicked)];
     
     // Need to call this to make sure TableView separators go to the edge.
     [self.tableView setSeparatorInset:UIEdgeInsetsZero];
@@ -146,7 +148,7 @@
     
     // Add height for bottom icons.
     height += 8 + 10 + 8;
-
+    
     // Add other static adjustment.
     height += 12;
     
@@ -154,7 +156,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-
+    
     // Make the "pressed" state temporary by immediately unselecting the row.
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
@@ -179,11 +181,18 @@
 
 #pragma mark - Private methods
 
-- (void)onSignOutButton {
+- (void)onSignOutButton
+{
     [User setCurrentUser:nil];
 }
 
-- (void)reload {
+- (void)onNewClicked
+{
+    NSLog(@"onNewClicked");
+}
+
+- (void)reload
+{
     [[TwitterClient instance] homeTimelineWithCount:20 sinceId:0 maxId:0 success:^(AFHTTPRequestOperation *operation, id response) {
         NSLog(@"%@", response);
         self.tweets = [Tweet tweetsWithArray:response];

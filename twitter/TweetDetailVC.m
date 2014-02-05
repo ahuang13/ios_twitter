@@ -51,8 +51,10 @@
     self.navigationItem.title = @"Tweet";
     
     // Initialize "Reply" button.
-    UIBarButtonItem *replyButton = [[UIBarButtonItem alloc] initWithTitle:@"Reply" style:UIBarButtonItemStylePlain target:self action:@selector(onReplyClicked)];
-    self.navigationItem.rightBarButtonItem = replyButton;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Reply"
+                                                                              style:UIBarButtonItemStylePlain
+                                                                             target:self
+                                                                             action:@selector(onReplyClicked)];
 }
 
 - (void)viewDidLoad
@@ -79,7 +81,7 @@
         self.retweetLabelTopConstraint.constant = 4;
         self.retweetedLabel.text = [NSString stringWithFormat:@"%@ retweeted", self.tweet.originalName];
     }
-
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -91,6 +93,8 @@
 - (void)onReplyClicked
 {
     NSLog(@"onReplyClicked");
+    
+    
 }
 
 @end
