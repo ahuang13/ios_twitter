@@ -147,6 +147,9 @@
     // Add height for bottom icons.
     height += 8 + 10 + 8;
 
+    // Add other static adjustment.
+    height += 12;
+    
     return height;
 }
 
