@@ -11,6 +11,8 @@
 #import "UIImageView+AFNetworking.h"
 #import "NSDate+Timestamp.h"
 #import "TweetDetailVC.h"
+#import "ComposeVC.h"
+#import "UINavigationController+Twitter.h"
 
 @interface TimelineVC ()
 
@@ -171,6 +173,11 @@
 - (void)onNewClicked
 {
     NSLog(@"onNewClicked");
+    
+    ComposeVC *composeVC = [[ComposeVC alloc] initWithNibName:@"ComposeVC" bundle:nil];
+    UINavigationController *composeNVC = [[UINavigationController alloc] initWithRootViewController:composeVC];
+    [composeNVC setTwitterNavigationBarStyle];
+    [[self navigationController] presentViewController:composeNVC animated:YES completion:nil];
 }
 
 - (void)reload

@@ -10,6 +10,7 @@
 #import "TwitterClient.h"
 #import "TimelineVC.h"
 #import "SignedOutVC.h"
+#import "UINavigationController+Twitter.h"
 
 @interface AppDelegate ()
 
@@ -128,15 +129,8 @@
 + (UINavigationController *)navigationControllerWithRoot:(UIViewController *)vc {
     
     UINavigationController *nvc = [[UINavigationController alloc] initWithRootViewController:vc];
-    
-    UIColor *twitterBlue = [[UIColor alloc] initWithRed:0.25 green:0.6 blue:1.0 alpha:0];
-    
-    nvc.navigationBar.barTintColor = twitterBlue;
-    nvc.navigationBar.tintColor = [UIColor whiteColor];
-    [nvc.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor whiteColor]}];
-    nvc.navigationBar.translucent = NO;
-    nvc.navigationBar.opaque = YES;
-    
+    [nvc setTwitterNavigationBarStyle];
+
     return nvc;
 }
 
