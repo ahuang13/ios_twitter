@@ -49,6 +49,10 @@
 - (void)initialize
 {
     self.navigationItem.title = @"Tweet";
+    
+    // Initialize "Reply" button.
+    UIBarButtonItem *replyButton = [[UIBarButtonItem alloc] initWithTitle:@"Reply" style:UIBarButtonItemStylePlain target:self action:@selector(onReplyClicked)];
+    self.navigationItem.rightBarButtonItem = replyButton;
 }
 
 - (void)viewDidLoad
@@ -82,6 +86,11 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)onReplyClicked
+{
+    NSLog(@"onReplyClicked");
 }
 
 @end
