@@ -22,4 +22,14 @@
 
 - (void)homeTimelineWithCount:(int)count sinceId:(NSString *)sinceId maxId:(long long)maxId success:(void (^)(AFHTTPRequestOperation *operation, id response))success failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
+// Favorites API
+
+- (void)favoriteTweetWithId:(long long)tweetId
+                    success:(void (^)(AFHTTPRequestOperation *operation, id response))success
+                    failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
+- (void)unfavoriteTweetWithId:(long long)tweetId
+                      success:(void (^)(AFHTTPRequestOperation *operation, id response))success
+                      failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
 @end

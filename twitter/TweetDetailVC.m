@@ -24,6 +24,8 @@
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *retweetLabelTopConstraint;
 @property (weak, nonatomic) IBOutlet UILabel *retweetedLabel;
 
+- (IBAction)onFavoriteClicked:(UIButton *)sender;
+
 @end
 
 @implementation TweetDetailVC
@@ -65,7 +67,7 @@
     NSLog(@"Tweet = %@", self.tweet);
     
     self.nameLabel.text = self.tweet.name;
-    self.screenNameLabel.text = self.tweet.screenName;
+    self.screenNameLabel.text = [NSString stringWithFormat:@"@%@", self.tweet.screenName];
     self.tweetTextLabel.text = self.tweet.text;
     self.timestampLabel.text = nil;//self.tweet.createdAt;
     [self.profileImageView setImageWithURL:self.tweet.profileImageUrl];
@@ -97,4 +99,12 @@
     
 }
 
+- (IBAction)onFavoriteClicked:(UIButton *)sender
+{
+    // Toggle the selected state.
+    [sender setSelected:!sender.isSelected];
+    
+    TwitterClient *twitterClient = [TwitterClient instance];
+    [twitterClient favoriteTweetWithId:self.tweet.tweetId success:nil failure:nil];
+}
 @end

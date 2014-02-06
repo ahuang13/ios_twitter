@@ -11,7 +11,9 @@
 @interface Tweet : RestObject
 
 @property (nonatomic, readonly) long long tweetId;
+@property (nonatomic, readonly) BOOL favorited;
 @property (nonatomic, strong, readonly) NSString *originalName;
+@property (nonatomic, strong, readonly) NSString *originalScreenName;
 @property (nonatomic, strong, readonly) NSString *name;
 @property (nonatomic, strong, readonly) NSString *screenName;
 @property (nonatomic, strong, readonly) NSAttributedString *nameAndScreenName;
