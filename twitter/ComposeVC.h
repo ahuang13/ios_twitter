@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ComposeVC : UIViewController
+@interface ComposeVC : UIViewController <UITextViewDelegate>
 
 @end
