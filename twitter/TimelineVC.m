@@ -13,6 +13,7 @@
 #import "TweetDetailVC.h"
 #import "ComposeVC.h"
 #import "UINavigationController+Twitter.h"
+#import "SVPullToRefresh.h"
 
 @interface TimelineVC ()
 
@@ -52,6 +53,13 @@
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(reload) forControlEvents:UIControlEventValueChanged];
     
+    // Initialize infinite scrolling.
+    __weak typeof(self) weakSelf = self;
+    [self.tableView addInfiniteScrollingWithActionHandler:^void() {
+        [weakSelf loadMore];
+    }];
+    
+    // Display the loading indicator on start up.
     if (self.isLoading) {
         [self.refreshControl beginRefreshing];
     }
@@ -205,9 +213,10 @@
         self.tweets = [Tweet tweetsWithArray:response];
         [self.refreshControl endRefreshing];
         [self.tableView reloadData];
+        [self.tableView.infiniteScrollingView stopAnimating];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [self.refreshControl endRefreshing];
-        // Do nothing
+        [self.tableView.infiniteScrollingView stopAnimating];
     }];
 }
 
@@ -229,11 +238,15 @@
         
         // Reload the tableView.
         [self.tableView reloadData];
+        
+        // Reset infinite scroll view state.
+        [self.tableView.infiniteScrollingView stopAnimating];
     };
     
     void (^failureBlock)(AFHTTPRequestOperation *, NSError *) = ^void(AFHTTPRequestOperation *operation, NSError *error)
     {
         NSLog(@"loadMore : failure");
+        [self.tableView.infiniteScrollingView stopAnimating];
     };
     
     [twitterClient homeTimelineWithCount:20
