@@ -181,7 +181,10 @@
 
 - (void)onSignOutButton
 {
-    [User setCurrentUser:nil];
+    //[User setCurrentUser:nil];
+    // TODO: show signout view controller
+    
+    [self loadMore];
 }
 
 - (void)onNewClicked
@@ -197,7 +200,7 @@
 - (void)reload
 {
     self.isLoading = YES;
-    [[TwitterClient instance] homeTimelineWithCount:20 sinceId:0 maxId:0 success:^(AFHTTPRequestOperation *operation, id response) {
+    [[TwitterClient instance] homeTimelineWithCount:20 sinceId:nil maxId:nil success:^(AFHTTPRequestOperation *operation, id response) {
         NSLog(@"%@", response);
         self.tweets = [Tweet tweetsWithArray:response];
         [self.refreshControl endRefreshing];
@@ -206,6 +209,38 @@
         [self.refreshControl endRefreshing];
         // Do nothing
     }];
+}
+
+- (void)loadMore
+{
+    TwitterClient *twitterClient = [TwitterClient instance];
+    
+    Tweet *currentOldestTweet = [self.tweets lastObject];
+    NSString *currentOldestTweetId = currentOldestTweet.tweetId;
+    NSLog(@"currentOldestTweetId = %@", currentOldestTweetId);
+
+    void (^successBlock)(AFHTTPRequestOperation *, id) = ^void(AFHTTPRequestOperation *operation, id response)
+    {
+        NSLog(@"%@", response);
+        
+        // Add newly downloaded tweets to existing array of Tweets.
+        NSMutableArray *newTweets = [Tweet tweetsWithArray:response];
+        [self.tweets addObjectsFromArray:newTweets];
+        
+        // Reload the tableView.
+        [self.tableView reloadData];
+    };
+    
+    void (^failureBlock)(AFHTTPRequestOperation *, NSError *) = ^void(AFHTTPRequestOperation *operation, NSError *error)
+    {
+        NSLog(@"loadMore : failure");
+    };
+    
+    [twitterClient homeTimelineWithCount:20
+                                 sinceId:0
+                                   maxId:currentOldestTweetId
+                                 success:successBlock
+                                 failure:failureBlock];
 }
 
 @end
