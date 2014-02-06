@@ -10,12 +10,9 @@
 
 @implementation Tweet
 
-- (NSString *)tweetId {
-    NSString *tweetIdNumber = [self.data valueOrNilForKeyPath:@"id_str"];
-    NSLog(@"NSNumber = %@", tweetIdNumber);
-    NSLog(@"NSNumber = %ld", NSIntegerMax);
-
-    return tweetIdNumber;
+- (long long)tweetId {
+    NSNumber *tweetIdNumber = [self.data valueOrNilForKeyPath:@"id"];
+    return [tweetIdNumber longLongValue];
 }
 
 - (NSString *)originalName {

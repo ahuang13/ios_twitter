@@ -51,7 +51,7 @@
     // Initialize pull-to-refresh.
     self.refreshControl = [[UIRefreshControl alloc] init];
     [self.refreshControl addTarget:self action:@selector(reload) forControlEvents:UIControlEventValueChanged];
-
+    
     if (self.isLoading) {
         [self.refreshControl beginRefreshing];
     }
@@ -200,7 +200,7 @@
 - (void)reload
 {
     self.isLoading = YES;
-    [[TwitterClient instance] homeTimelineWithCount:20 sinceId:nil maxId:nil success:^(AFHTTPRequestOperation *operation, id response) {
+    [[TwitterClient instance] homeTimelineWithCount:20 sinceId:nil maxId:0 success:^(AFHTTPRequestOperation *operation, id response) {
         NSLog(@"%@", response);
         self.tweets = [Tweet tweetsWithArray:response];
         [self.refreshControl endRefreshing];
@@ -216,9 +216,9 @@
     TwitterClient *twitterClient = [TwitterClient instance];
     
     Tweet *currentOldestTweet = [self.tweets lastObject];
-    NSString *currentOldestTweetId = currentOldestTweet.tweetId;
-    NSLog(@"currentOldestTweetId = %@", currentOldestTweetId);
-
+    long long currentOldestTweetId = currentOldestTweet.tweetId;
+    NSLog(@"currentOldestTweetId = %lld", currentOldestTweetId);
+    
     void (^successBlock)(AFHTTPRequestOperation *, id) = ^void(AFHTTPRequestOperation *operation, id response)
     {
         NSLog(@"%@", response);
@@ -238,7 +238,7 @@
     
     [twitterClient homeTimelineWithCount:20
                                  sinceId:0
-                                   maxId:currentOldestTweetId
+                                   maxId:currentOldestTweetId - 1
                                  success:successBlock
                                  failure:failureBlock];
 }
