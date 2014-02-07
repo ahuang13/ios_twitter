@@ -129,6 +129,8 @@ static const int UNDO_RETWEET_ALERT_TAG = 2;
 
 - (IBAction)onFavoriteClicked:(UIButton *)sender
 {
+    [self onFavoriteTweet:self.tweet button:sender label:self.numFavoritesLabel];
+    
     // Set the favorited property on the Tweet.
     self.tweet.favorited = !self.tweet.favorited;
     
@@ -139,10 +141,8 @@ static const int UNDO_RETWEET_ALERT_TAG = 2;
     TwitterClient *twitterClient = [TwitterClient instance];
     if (self.tweet.favorited) {
         [twitterClient favoriteTweetWithId:self.tweet.tweetId success:nil failure:nil];
-        [self favoriteCountAdd:1];
     } else {
         [twitterClient unfavoriteTweetWithId:self.tweet.tweetId success:nil failure:nil];
-        [self favoriteCountAdd:-1];
     }
 }
 
@@ -165,17 +165,6 @@ static const int UNDO_RETWEET_ALERT_TAG = 2;
 - (void)onBarReplyClicked
 {
     [self onReplyToTweet:self.tweet];
-}
-
-- (void)favoriteCountAdd:(NSInteger)count
-{
-    NSInteger newFavoriteCount = [self.tweet.favoriteCount integerValue] + count;
-    self.tweet.favoriteCount = [NSNumber numberWithInteger:newFavoriteCount];
-    
-    self.numFavoritesLabel.text = [self.tweet.favoriteCount stringValue];
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:FavoriteStatusUpdated
-                                                        object:nil];
 }
 
 - (void)showRetweetAlert
@@ -204,7 +193,7 @@ static const int UNDO_RETWEET_ALERT_TAG = 2;
 {
     // If "Retweet" was clicked...
     if (buttonIndex == alertView.firstOtherButtonIndex) {
-        [self retweetTweet:self.tweet];
+        [self retweetTweet:self.tweet button:self.retweetButton label:self.numRetweetsLabel];
     }
 }
 
@@ -212,7 +201,7 @@ static const int UNDO_RETWEET_ALERT_TAG = 2;
 {
     // If "Undo" was clicked...
     if (buttonIndex == alertView.firstOtherButtonIndex) {
-        [self undoRetweet:self.tweet];
+        [self unretweet:self.tweet button:self.retweetButton label:self.numRetweetsLabel];
     }
 }
 

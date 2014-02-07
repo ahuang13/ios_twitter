@@ -42,8 +42,6 @@
 
 - (void)viewDidLoad
 {
-    NSLog(@"viewDidLoad ***********************");
-    
     [super viewDidLoad];
     
     // Initialize navigation bar buttons.
@@ -76,6 +74,11 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(onTweetFavoritedNotification:)
                                                  name:FavoriteStatusUpdated
+                                               object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(onRetweetedNotification:)
+                                                 name:RetweetedStatusUpdated
                                                object:nil];
 }
 
@@ -116,6 +119,9 @@
     // Set the button action handlers.
     [cell.replyButton setTag:indexPath.row];
     [cell.replyButton addTarget:self action:@selector(onReplyClicked:) forControlEvents:UIControlEventTouchUpInside];
+
+    [cell.retweetButton setTag:indexPath.row];
+    [cell.retweetButton addTarget:self action:@selector(onRetweetClicked:) forControlEvents:UIControlEventTouchUpInside];
 
     [cell.favoriteButton setTag:indexPath.row];
     [cell.favoriteButton addTarget:self action:@selector(onFavoriteClicked:) forControlEvents:UIControlEventTouchUpInside];
@@ -239,6 +245,14 @@
     [self onReplyToTweet:tweet];
 }
 
+- (void)onRetweetClicked:(UIButton *)sender
+{
+    NSInteger index = sender.tag;
+    Tweet *tweet = self.tweets[index];
+    
+    [self retweetTweet:tweet button:sender label:nil];
+}
+
 - (void)onFavoriteClicked:(UIButton *)sender
 {
     NSInteger index = sender.tag;
@@ -256,6 +270,11 @@
 }
 
 - (void)onTweetFavoritedNotification:(NSNotification *) notification
+{
+    [self.tableView reloadData];
+}
+
+- (void)onRetweetedNotification:(NSNotification *) notification
 {
     [self.tableView reloadData];
 }

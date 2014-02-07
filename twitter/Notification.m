@@ -9,7 +9,8 @@
 #import "Notification.h"
 
 NSString * const NewTweetPosted = @"NewTweetPosted";
-NSString * const FavoriteStatusUpdated = @"TweetStarred";
+NSString * const FavoriteStatusUpdated = @"FavoriteStatusUpdated";
+NSString * const RetweetedStatusUpdated = @"RetweetedStatusUpdated";
 
 @implementation Notification
 

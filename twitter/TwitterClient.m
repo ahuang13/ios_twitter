@@ -60,6 +60,7 @@ static NSString * const kAccessTokenKey = @"kAccessTokenKey";
 - (void)homeTimelineWithCount:(int)count sinceId:(NSString *)sinceId maxId:(long long)maxId success:(void (^)(AFHTTPRequestOperation *operation, id response))success failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:@{@"count": @(count)}];
+    
     if (sinceId) {
         [params setObject:sinceId forKey:@"since_id"];
     }
@@ -117,6 +118,14 @@ static NSString * const kAccessTokenKey = @"kAccessTokenKey";
     }
     
     [self postPath:path parameters:params success:success failure:failure];
+}
+
+- (void)destroyTweetWithId:(long long)tweetId
+                   success:(void (^)(AFHTTPRequestOperation *operation, id response))success
+                   failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
+{
+    NSString *path = [NSString stringWithFormat:@"1.1/statuses/destroy/%lld.json", tweetId];
+    [self postPath:path parameters:nil success:success failure:failure];
 }
 
 #pragma mark - Retweet API

@@ -28,6 +28,9 @@
     // Set the favorited property on the Tweet.
     tweet.favorited = !tweet.favorited;
     
+    // Toggle the selected state of the star button.
+    [favoriteButton setSelected:tweet.favorited];
+    
     // Post the favorite or unfavorite request.
     TwitterClient *twitterClient = [TwitterClient instance];
     if (tweet.favorited) {
@@ -38,39 +41,51 @@
         [self favoriteCountAdd:-1 toLabel:favoriteCountLabel forTweet:tweet];
     }
     
+    // Notify the timeline to reload its data.
     [[NSNotificationCenter defaultCenter] postNotificationName:FavoriteStatusUpdated
                                                         object:nil];
 }
 
-- (void)retweetTweet:(Tweet *)originalTweet
+- (void)retweetTweet:(Tweet *)originalTweet button:(UIButton *)retweetButton label:(UILabel *)retweetCountLabel
 {
-    TwitterClient *twitterClient = [TwitterClient instance];
-    long long tweetId = originalTweet.tweetId;
-    
-    void (^success)(AFHTTPRequestOperation *, id) = ^void(AFHTTPRequestOperation *operation, id response)
-    {
-        Tweet *postedTweet = [[Tweet alloc] initWithDictionary:response];
-        [[NSNotificationCenter defaultCenter] postNotificationName:NewTweetPosted
-                                                            object:postedTweet];
-    };
-    
-    [twitterClient retweetWithId:tweetId success:success failure:nil];
-    
+    // Update retweeted stats in the Tweet object.
     originalTweet.retweeted = YES;
     NSInteger newRetweetCount = [originalTweet.retweetCount integerValue] + 1;
     originalTweet.retweetCount = [NSNumber numberWithInteger:newRetweetCount];
+
+    // Toggle the selected state of the retweet button.
+    [retweetButton setSelected:originalTweet.retweeted];
+
+    TwitterClient *twitterClient = [TwitterClient instance];
+    long long tweetId = originalTweet.tweetId;
+    
+    // Post the retweet.
+    [twitterClient retweetWithId:tweetId success:nil failure:nil];
+
+    // Notify the timeline to reload its data.
+    [[NSNotificationCenter defaultCenter] postNotificationName:RetweetedStatusUpdated
+                                                        object:nil];
 }
 
-- (void)undoRetweet:(Tweet *)originalTweet
+- (void)unretweet:(Tweet *)originalTweet button:(UIButton *)retweetButton label:(UILabel *)retweetCountLabel
 {
-    // TODO
-    TwitterClient *twitterClient = [TwitterClient instance];
-    //long long retweetId = self.tweet.retweetId;
-    //[twitterClient unretweetWithId:retweetId success:nil failure:nil];
-    
+    // Update retweeted stats in the Tweet object.
     originalTweet.retweeted = NO;
     NSInteger newRetweetCount = [originalTweet.retweetCount integerValue] - 1;
     originalTweet.retweetCount = [NSNumber numberWithInteger:newRetweetCount];
+
+    // Toggle the selected state of the retweet button.
+    [retweetButton setSelected:originalTweet.retweeted];
+
+    TwitterClient *twitterClient = [TwitterClient instance];
+    long long tweetId = originalTweet.tweetId;
+    
+    // Post the retweet.
+    [twitterClient destroyTweetWithId:tweetId success:nil failure:nil];
+    
+    // Notify the timeline to reload its data.
+    [[NSNotificationCenter defaultCenter] postNotificationName:RetweetedStatusUpdated
+                                                        object:nil];
 }
 
 #pragma mark - Private Methods

@@ -30,7 +30,7 @@ static const NSInteger MAX_CHARS = 140;
 - (id)init
 {
     self = [super initWithNibName:@"ComposeVC" bundle:nil];
-
+    
     if (self) {
         // Custom initialization
     }
@@ -173,15 +173,17 @@ static const NSInteger MAX_CHARS = 140;
         Tweet *postedTweet = [[Tweet alloc] initWithDictionary:response];
         NSLog(@"postedTweet : %@", postedTweet.text);
         
-        [[NSNotificationCenter defaultCenter] postNotificationName:NewTweetPosted
-                                                            object:postedTweet];
+        if (self.replyToTweet) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:NewTweetPosted
+                                                                object:postedTweet];
+        }
     };
     
     void (^failure)(AFHTTPRequestOperation *, NSError *) = ^void(AFHTTPRequestOperation *operation, NSError *error)
     {
         NSLog(@"onTweetClicked : failure\n%@", error);
     };
-
+    
     TwitterClient *twitterClient = [TwitterClient instance];
     [twitterClient tweet:self.tweetTextView.text success:success failure:failure];
 }

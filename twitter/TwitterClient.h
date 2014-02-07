@@ -50,6 +50,10 @@
       success:(void (^)(AFHTTPRequestOperation *operation, id response))success
       failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
+- (void)destroyTweetWithId:(long long)tweetId
+                   success:(void (^)(AFHTTPRequestOperation *operation, id response))success
+                   failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
 // Retweets API
 
 - (void)retweetWithId:(long long)tweetId

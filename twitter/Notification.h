@@ -10,6 +10,7 @@
 
 extern NSString *const NewTweetPosted;
 extern NSString *const FavoriteStatusUpdated;
+extern NSString *const RetweetedStatusUpdated;
 
 @interface Notification : NSObject
 

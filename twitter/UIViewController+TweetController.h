@@ -13,7 +13,7 @@
 - (void)onReplyToTweet:(Tweet *)originalTweet;
 - (void)onFavoriteTweet:(Tweet *)tweet button:(UIButton *)favoriteButton label:(UILabel *)favoriteCountLabel;
 
-- (void)retweetTweet:(Tweet *)originalTweet;
-- (void)undoRetweet:(Tweet *)originalTweet;
+- (void)retweetTweet:(Tweet *)originalTweet button:(UIButton *)retweetButton label:(UILabel *)retweetCountLabel;
+- (void)unretweet:(Tweet *)originalTweet button:(UIButton *)retweetButton label:(UILabel *)retweetCountLabel;
 
 @end
