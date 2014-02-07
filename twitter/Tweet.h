@@ -27,6 +27,8 @@
 @property (nonatomic, strong) NSNumber *favoriteCount;
 @property (nonatomic, strong) NSNumber *retweetCount;
 
+@property (nonatomic) long long currentUserRetweetedId;
+
 + (NSMutableArray *)tweetsWithArray:(NSArray *)array;
 
 @end

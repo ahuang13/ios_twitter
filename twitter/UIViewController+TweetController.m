@@ -53,6 +53,9 @@
     NSInteger newRetweetCount = [originalTweet.retweetCount integerValue] + 1;
     originalTweet.retweetCount = [NSNumber numberWithInteger:newRetweetCount];
 
+    // Update the label.
+    retweetCountLabel.text = [originalTweet.retweetCount stringValue];
+    
     // Toggle the selected state of the retweet button.
     [retweetButton setSelected:originalTweet.retweeted];
 
@@ -74,14 +77,19 @@
     NSInteger newRetweetCount = [originalTweet.retweetCount integerValue] - 1;
     originalTweet.retweetCount = [NSNumber numberWithInteger:newRetweetCount];
 
+    // Update the label.
+    retweetCountLabel.text = [originalTweet.retweetCount stringValue];
+
     // Toggle the selected state of the retweet button.
     [retweetButton setSelected:originalTweet.retweeted];
 
     TwitterClient *twitterClient = [TwitterClient instance];
-    long long tweetId = originalTweet.tweetId;
+    long long retweetedId = originalTweet.currentUserRetweetedId;
+    
+    NSLog(@"unretweet : %lld", retweetedId);
     
     // Post the retweet.
-    [twitterClient destroyTweetWithId:tweetId success:nil failure:nil];
+    [twitterClient destroyTweetWithId:retweetedId success:nil failure:nil];
     
     // Notify the timeline to reload its data.
     [[NSNotificationCenter defaultCenter] postNotificationName:RetweetedStatusUpdated

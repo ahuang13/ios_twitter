@@ -61,6 +61,9 @@
     _retweetCount = [self.data valueForKey:@"retweet_count"];
     
     _retweeted = [[self.data valueForKey:@"retweeted"] boolValue];
+    
+    NSNumber *currentUserRetweetedIdNumber = [self.data valueOrNilForKeyPath:@"current_user_retweet.id"];
+    _currentUserRetweetedId = [currentUserRetweetedIdNumber longLongValue];
 }
 
 - (NSAttributedString *)nameAndScreenName

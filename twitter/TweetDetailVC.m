@@ -130,20 +130,6 @@ static const int UNDO_RETWEET_ALERT_TAG = 2;
 - (IBAction)onFavoriteClicked:(UIButton *)sender
 {
     [self onFavoriteTweet:self.tweet button:sender label:self.numFavoritesLabel];
-    
-    // Set the favorited property on the Tweet.
-    self.tweet.favorited = !self.tweet.favorited;
-    
-    // Toggle the selected state of the star button.
-    [sender setSelected:self.tweet.favorited];
-    
-    // Post the favorite or unfavorite request.
-    TwitterClient *twitterClient = [TwitterClient instance];
-    if (self.tweet.favorited) {
-        [twitterClient favoriteTweetWithId:self.tweet.tweetId success:nil failure:nil];
-    } else {
-        [twitterClient unfavoriteTweetWithId:self.tweet.tweetId success:nil failure:nil];
-    }
 }
 
 - (IBAction)onRetweetClicked:(UIButton *)sender

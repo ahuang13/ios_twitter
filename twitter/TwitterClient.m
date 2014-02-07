@@ -61,6 +61,8 @@ static NSString * const kAccessTokenKey = @"kAccessTokenKey";
 {
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:@{@"count": @(count)}];
     
+    [params setObject:@(YES) forKey:@("include_my_retweet")];
+    
     if (sinceId) {
         [params setObject:sinceId forKey:@"since_id"];
     }
