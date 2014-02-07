@@ -202,49 +202,18 @@ static const int UNDO_RETWEET_ALERT_TAG = 2;
 
 - (void)onRetweetAlertResponse:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    NSLog(@"onRetweetAlertResponse:%d", buttonIndex);
-    
     // If "Retweet" was clicked...
     if (buttonIndex == alertView.firstOtherButtonIndex) {
-        [self retweet];
+        [self retweetTweet:self.tweet];
     }
 }
 
 - (void)onUndoRetweetAlertResponse:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    NSLog(@"onUndoRetweetAlertResponse:%d", buttonIndex);
-    
     // If "Undo" was clicked...
     if (buttonIndex == alertView.firstOtherButtonIndex) {
-        [self undoRetweet];
+        [self undoRetweet:self.tweet];
     }
-}
-
-- (void)retweet
-{
-    TwitterClient *twitterClient = [TwitterClient instance];
-    long long tweetId = self.tweet.tweetId;
-    
-    NSLog(@"tweetId = %lld", tweetId);
-    
-    void (^success)(AFHTTPRequestOperation *, id) = ^void(AFHTTPRequestOperation *operation, id response)
-    {
-        NSLog(@"%@", response);
-    };
-    
-    [twitterClient retweetWithId:tweetId success:success failure:nil];
-    
-    self.tweet.retweeted = YES;
-}
-
-- (void)undoRetweet
-{
-    // TODO
-    TwitterClient *twitterClient = [TwitterClient instance];
-    //long long retweetId = self.tweet.retweetId;
-    //[twitterClient unretweetWithId:retweetId success:nil failure:nil];
-    
-    self.tweet.retweeted = NO;
 }
 
 @end

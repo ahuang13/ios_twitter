@@ -116,6 +116,9 @@
     // Set the button action handlers.
     [cell.replyButton setTag:indexPath.row];
     [cell.replyButton addTarget:self action:@selector(onReplyClicked:) forControlEvents:UIControlEventTouchUpInside];
+
+    [cell.favoriteButton setTag:indexPath.row];
+    [cell.favoriteButton addTarget:self action:@selector(onFavoriteClicked:) forControlEvents:UIControlEventTouchUpInside];
     
     // Get the current Tweet.
     Tweet *tweet = self.tweets[indexPath.row];
@@ -236,11 +239,17 @@
     [self onReplyToTweet:tweet];
 }
 
+- (void)onFavoriteClicked:(UIButton *)sender
+{
+    NSInteger index = sender.tag;
+    Tweet *tweet = self.tweets[index];
+    
+    [self onFavoriteTweet:tweet button:sender label:nil];
+}
+
 - (void)onNewPostTweetedNotification:(NSNotification *) notification
 {
     Tweet *tweet = notification.object;
-    
-    NSLog(@"onNewPostTweetedNotification : %@", tweet.text);
     
     [self.tweets insertObject:tweet atIndex:0];
     [self.tableView reloadData];
@@ -250,7 +259,6 @@
 {
     [self.tableView reloadData];
 }
-
 
 - (void)reload
 {

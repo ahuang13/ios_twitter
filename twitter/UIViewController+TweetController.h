@@ -11,5 +11,9 @@
 @interface UIViewController (TweetController)
 
 - (void)onReplyToTweet:(Tweet *)originalTweet;
+- (void)onFavoriteTweet:(Tweet *)tweet button:(UIButton *)favoriteButton label:(UILabel *)favoriteCountLabel;
+
+- (void)retweetTweet:(Tweet *)originalTweet;
+- (void)undoRetweet:(Tweet *)originalTweet;
 
 @end
