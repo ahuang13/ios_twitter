@@ -26,6 +26,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *retweetedLabel;
 
 - (IBAction)onFavoriteClicked:(UIButton *)sender;
+- (IBAction)onRetweetClicked:(UIButton *)sender;
 
 @end
 
@@ -126,6 +127,11 @@
         [twitterClient unfavoriteTweetWithId:self.tweet.tweetId success:nil failure:nil];
         [self favoriteCountAdd:-1];
     }
+}
+
+- (IBAction)onRetweetClicked:(UIButton *)sender
+{
+    
 }
 
 @end

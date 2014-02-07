@@ -89,6 +89,26 @@ static NSString * const kAccessTokenKey = @"kAccessTokenKey";
     [self postPath:path parameters:params success:success failure:failure];
 }
 
+#pragma mark - Retweet API
+
+- (void)retweetWithId:(long long)tweetId
+              success:(void (^)(AFHTTPRequestOperation *operation, id response))success
+              failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
+{
+    NSString *path = [NSString stringWithFormat:@"1.1/statuses/retweet/%lld.json", tweetId];
+    
+    [self postPath:path parameters:nil success:success failure:failure];
+}
+
+- (void)unretweetWithId:(long long)retweetId
+                success:(void (^)(AFHTTPRequestOperation *operation, id response))success
+                failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
+{
+    NSString *path = [NSString stringWithFormat:@"1.1/statuses/destroy/%lld.json", retweetId];
+
+    [self postPath:path parameters:nil success:success failure:failure];
+}
+
 #pragma mark - Private methods
 
 - (void)setAccessToken:(AFOAuth1Token *)accessToken {

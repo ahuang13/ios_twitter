@@ -40,6 +40,8 @@
 
 - (void)viewDidLoad
 {
+    NSLog(@"viewDidLoad ***********************");
+    
     [super viewDidLoad];
     
     // Initialize navigation bar buttons.
