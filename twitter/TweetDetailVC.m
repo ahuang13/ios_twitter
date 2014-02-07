@@ -69,7 +69,7 @@
     self.nameLabel.text = self.tweet.name;
     self.screenNameLabel.text = [NSString stringWithFormat:@"@%@", self.tweet.screenName];
     self.tweetTextLabel.text = self.tweet.text;
-    self.timestampLabel.text = nil;//self.tweet.createdAt;
+    self.timestampLabel.text = self.tweet.createdAtString;
     [self.profileImageView setImageWithURL:self.tweet.profileImageUrl];
     
     self.numRetweetsLabel.text = [self.tweet.retweetCount stringValue];

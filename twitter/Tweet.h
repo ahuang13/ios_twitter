@@ -20,6 +20,7 @@
 @property (nonatomic, strong, readonly) NSString *text;
 @property (nonatomic, strong, readonly) NSURL *profileImageUrl;
 @property (nonatomic, strong, readonly) NSDate *createdAt;
+@property (nonatomic, strong, readonly) NSString *createdAtString;
 @property (nonatomic, readonly) BOOL isRetweet;
 
 @property (nonatomic, strong, readonly) NSNumber *favoriteCount;

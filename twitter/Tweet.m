@@ -61,8 +61,8 @@
     _retweetCount = [self.data valueForKey:@"retweet_count"];
 }
 
-- (NSAttributedString *)nameAndScreenName {
-    
+- (NSAttributedString *)nameAndScreenName
+{
     NSString *unattributedString = [NSString stringWithFormat:@"%@ @%@", self.name, self.screenName];
     
     NSRange nameRange = NSMakeRange(0, self.name.length);
@@ -77,7 +77,20 @@
     return attributedString;
 }
 
-+ (NSMutableArray *)tweetsWithArray:(NSArray *)array {
+- (NSString *)createdAtString
+{
+    static NSDateFormatter *dateFormatter;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"MM/dd/yy, hh:mm a"];
+    });
+
+    return [dateFormatter stringFromDate:self.createdAt];
+}
+
++ (NSMutableArray *)tweetsWithArray:(NSArray *)array
+{
     NSMutableArray *tweets = [[NSMutableArray alloc] initWithCapacity:array.count];
     for (NSDictionary *params in array) {
         [tweets addObject:[[Tweet alloc] initWithDictionary:params]];
