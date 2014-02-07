@@ -101,6 +101,14 @@
     
 }
 
+- (void)favoriteCountAdd:(NSInteger)count
+{
+    NSInteger newFavoriteCount = [self.tweet.favoriteCount integerValue] + count;
+    self.tweet.favoriteCount = [NSNumber numberWithInteger:newFavoriteCount];
+    
+    self.numFavoritesLabel.text = [self.tweet.favoriteCount stringValue];
+}
+
 - (IBAction)onFavoriteClicked:(UIButton *)sender
 {
     // Set the favorited property on the Tweet.
@@ -113,6 +121,11 @@
     TwitterClient *twitterClient = [TwitterClient instance];
     if (self.tweet.favorited) {
         [twitterClient favoriteTweetWithId:self.tweet.tweetId success:nil failure:nil];
+        [self favoriteCountAdd:1];
+    } else {
+        [twitterClient unfavoriteTweetWithId:self.tweet.tweetId success:nil failure:nil];
+        [self favoriteCountAdd:-1];
     }
 }
+
 @end

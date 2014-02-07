@@ -23,8 +23,8 @@
 @property (nonatomic, strong, readonly) NSString *createdAtString;
 @property (nonatomic, readonly) BOOL isRetweet;
 
-@property (nonatomic, strong, readonly) NSNumber *favoriteCount;
-@property (nonatomic, strong, readonly) NSNumber *retweetCount;
+@property (nonatomic, strong) NSNumber *favoriteCount;
+@property (nonatomic, strong) NSNumber *retweetCount;
 
 + (NSMutableArray *)tweetsWithArray:(NSArray *)array;
 
