@@ -59,6 +59,8 @@
     _favoriteCount = [self.data valueForKey:@"favorite_count"];
     
     _retweetCount = [self.data valueForKey:@"retweet_count"];
+    
+    _retweeted = [[self.data valueForKey:@"retweeted"] boolValue];
 }
 
 - (NSAttributedString *)nameAndScreenName

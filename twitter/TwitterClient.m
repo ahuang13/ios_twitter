@@ -83,8 +83,34 @@ static NSString * const kAccessTokenKey = @"kAccessTokenKey";
                       failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
 {
     static NSString *path = @"1.1/favorites/destroy.json";
-
+    
     NSDictionary *params = [NSDictionary dictionaryWithObject:@(tweetId) forKey:@"id"];
+    
+    [self postPath:path parameters:params success:success failure:failure];
+}
+
+#pragma mark - Post Status API
+
+- (void)tweet:(NSString *)text
+      success:(void (^)(AFHTTPRequestOperation *operation, id response))success
+      failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
+{
+    [self tweet:text inReplyToId:0 success:success failure:failure];
+}
+
+- (void)tweet:(NSString *)text
+  inReplyToId:(long long)replyToId
+      success:(void (^)(AFHTTPRequestOperation *operation, id response))success
+      failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
+{
+    static NSString *path = @"1.1/statuses/update.json";
+    
+    NSMutableDictionary *params = [[NSMutableDictionary alloc] init];
+    [params setObject:text forKey:@"status"];
+    
+    if (replyToId > 0) {
+        [params setObject:@(replyToId) forKey:@"in_reply_to_status_id"];
+    }
     
     [self postPath:path parameters:params success:success failure:failure];
 }
@@ -105,7 +131,7 @@ static NSString * const kAccessTokenKey = @"kAccessTokenKey";
                 failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
 {
     NSString *path = [NSString stringWithFormat:@"1.1/statuses/destroy/%lld.json", retweetId];
-
+    
     [self postPath:path parameters:nil success:success failure:failure];
 }
 
@@ -113,7 +139,7 @@ static NSString * const kAccessTokenKey = @"kAccessTokenKey";
 
 - (void)setAccessToken:(AFOAuth1Token *)accessToken {
     [super setAccessToken:accessToken];
-
+    
     if (accessToken) {
         NSData *data = [NSKeyedArchiver archivedDataWithRootObject:accessToken];
         [[NSUserDefaults standardUserDefaults] setObject:data forKey:kAccessTokenKey];

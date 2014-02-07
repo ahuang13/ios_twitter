@@ -118,6 +118,7 @@
     NSLog(@"favorited = %d", tweet.favorited);
     
     [cell.favoriteButton setSelected:tweet.favorited];
+    [cell.retweetButton setSelected:tweet.retweeted];
     
     return cell;
 }

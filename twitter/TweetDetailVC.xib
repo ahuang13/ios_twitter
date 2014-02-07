@@ -12,6 +12,7 @@
                 <outlet property="numFavoritesLabel" destination="VOp-JP-K6Y" id="N8m-Bc-gz6"/>
                 <outlet property="numRetweetsLabel" destination="1IT-2Q-EzW" id="SQu-Zb-wWm"/>
                 <outlet property="profileImageView" destination="RJp-3z-Cnc" id="C6u-Ai-xP8"/>
+                <outlet property="retweetButton" destination="EEx-m8-rYI" id="5ZF-Dh-tBa"/>
                 <outlet property="retweetLabelHeightConstraint" destination="X7E-kP-7rU" id="WWk-ve-Yq1"/>
                 <outlet property="retweetLabelTopConstraint" destination="udq-Lw-Fzr" id="fRW-X7-yc1"/>
                 <outlet property="retweetedLabel" destination="mSX-aL-Hqr" id="mIX-j2-a8w"/>

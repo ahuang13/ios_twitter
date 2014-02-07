@@ -32,10 +32,25 @@
                       success:(void (^)(AFHTTPRequestOperation *operation, id response))success
                       failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
+// Post Tweet API
+
+- (void)tweet:(NSString *)text
+      success:(void (^)(AFHTTPRequestOperation *operation, id response))success
+      failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
+- (void)tweet:(NSString *)text
+  inReplyToId:(long long)replyToId
+      success:(void (^)(AFHTTPRequestOperation *operation, id response))success
+      failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
 // Retweets API
 
 - (void)retweetWithId:(long long)tweetId
               success:(void (^)(AFHTTPRequestOperation *operation, id response))success
               failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+
+- (void)unretweetWithId:(long long)retweetId
+                success:(void (^)(AFHTTPRequestOperation *operation, id response))success
+                failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
 @end

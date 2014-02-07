@@ -22,6 +22,7 @@
 @property (nonatomic, strong, readonly) NSDate *createdAt;
 @property (nonatomic, strong, readonly) NSString *createdAtString;
 @property (nonatomic, readonly) BOOL isRetweet;
+@property (nonatomic) BOOL retweeted;
 
 @property (nonatomic, strong) NSNumber *favoriteCount;
 @property (nonatomic, strong) NSNumber *retweetCount;

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface TweetDetailVC : UIViewController
+@interface TweetDetailVC : UIViewController <UIAlertViewDelegate>
 
 - (id)initWithTweet:(Tweet *)tweet;
 

@@ -143,6 +143,7 @@
                 <outlet property="favoriteButton" destination="hah-bf-jDO" id="sxJ-Lr-V4b"/>
                 <outlet property="nameLabel" destination="IMM-dy-zzq" id="wIh-SR-Hcp"/>
                 <outlet property="profileImageView" destination="7ki-9M-Wjx" id="O2w-kq-qKv"/>
+                <outlet property="retweetButton" destination="G51-L4-3Nj" id="2bo-eW-CU0"/>
                 <outlet property="retweetedIcon" destination="GqX-HY-Qhi" id="idd-8K-qpe"/>
                 <outlet property="retweetedLabel" destination="xE7-GS-wj7" id="sXE-zL-vR8"/>
                 <outlet property="retweetedViewHeightConstraint" destination="MTM-dW-QYq" id="Ynz-Gz-k1P"/>

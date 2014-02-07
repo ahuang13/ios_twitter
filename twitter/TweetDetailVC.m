@@ -21,6 +21,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *numRetweetsLabel;
 @property (weak, nonatomic) IBOutlet UILabel *numFavoritesLabel;
 @property (weak, nonatomic) IBOutlet UIButton *favoriteButton;
+@property (weak, nonatomic) IBOutlet UIButton *retweetButton;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *retweetLabelHeightConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *retweetLabelTopConstraint;
 @property (weak, nonatomic) IBOutlet UILabel *retweetedLabel;
@@ -31,6 +32,9 @@
 @end
 
 @implementation TweetDetailVC
+
+static const int RETWEET_ALERT_TAG = 1;
+static const int UNDO_RETWEET_ALERT_TAG = 2;
 
 - (id)initWithTweet:(Tweet *)tweet
 {
@@ -87,6 +91,7 @@
     }
     
     [self.favoriteButton setSelected:self.tweet.favorited];
+    [self.retweetButton setSelected:self.tweet.retweeted];
 }
 
 - (void)didReceiveMemoryWarning
@@ -95,20 +100,27 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)onReplyClicked
+#pragma mark - UIAlertViewDelegate Methods
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    NSLog(@"onReplyClicked");
-    
-    
+    switch (alertView.tag) {
+            
+        case RETWEET_ALERT_TAG:
+            [self onRetweetAlertResponse:alertView clickedButtonAtIndex:buttonIndex];
+            break;
+
+        case UNDO_RETWEET_ALERT_TAG:
+            [self onUndoRetweetAlertResponse:alertView clickedButtonAtIndex:buttonIndex];
+            break;
+            
+        default:
+            NSLog(@"Unrecognized UIAlertView w/ tag %d", alertView.tag);
+            break;
+    }
 }
 
-- (void)favoriteCountAdd:(NSInteger)count
-{
-    NSInteger newFavoriteCount = [self.tweet.favoriteCount integerValue] + count;
-    self.tweet.favoriteCount = [NSNumber numberWithInteger:newFavoriteCount];
-    
-    self.numFavoritesLabel.text = [self.tweet.favoriteCount stringValue];
-}
+#pragma mark - IBAction Methods
 
 - (IBAction)onFavoriteClicked:(UIButton *)sender
 {
@@ -131,7 +143,96 @@
 
 - (IBAction)onRetweetClicked:(UIButton *)sender
 {
+    if (self.tweet.retweeted) {
+        [self showUndoRetweetAlert];
+    } else {
+        [self showRetweetAlert];
+    }
+}
+
+#pragma mark - Private Methods
+
+- (void)onReplyClicked
+{
+    NSLog(@"onReplyClicked");
     
+    
+}
+
+- (void)favoriteCountAdd:(NSInteger)count
+{
+    NSInteger newFavoriteCount = [self.tweet.favoriteCount integerValue] + count;
+    self.tweet.favoriteCount = [NSNumber numberWithInteger:newFavoriteCount];
+    
+    self.numFavoritesLabel.text = [self.tweet.favoriteCount stringValue];
+}
+
+- (void)showRetweetAlert
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Retweet"
+                                                    message:@"Retweet this to your followers?"
+                                                   delegate:self
+                                          cancelButtonTitle:@"Cancel"
+                                          otherButtonTitles:@"Retweet", nil];
+    [alert setTag:RETWEET_ALERT_TAG];
+    [alert show];
+}
+
+- (void)showUndoRetweetAlert
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Retweet"
+                                                    message:@"Undo this retweet?"
+                                                   delegate:self
+                                          cancelButtonTitle:@"Cancel"
+                                          otherButtonTitles:@"Undo", nil];
+    [alert setTag:UNDO_RETWEET_ALERT_TAG];
+    [alert show];
+}
+
+- (void)onRetweetAlertResponse:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSLog(@"onRetweetAlertResponse:%d", buttonIndex);
+    
+    // If "Retweet" was clicked...
+    if (buttonIndex == alertView.firstOtherButtonIndex) {
+        [self retweet];
+    }
+}
+
+- (void)onUndoRetweetAlertResponse:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSLog(@"onUndoRetweetAlertResponse:%d", buttonIndex);
+    
+    // If "Undo" was clicked...
+    if (buttonIndex == alertView.firstOtherButtonIndex) {
+        [self undoRetweet];
+    }
+}
+
+- (void)retweet
+{
+    TwitterClient *twitterClient = [TwitterClient instance];
+    long long tweetId = self.tweet.tweetId;
+    
+    NSLog(@"tweetId = %lld", tweetId);
+    
+    void (^success)(AFHTTPRequestOperation *, id) = ^void(AFHTTPRequestOperation *operation, id response)
+    {
+        NSLog(@"%@", response);
+    };
+    
+    [twitterClient retweetWithId:tweetId success:success failure:nil];
+    
+    self.tweet.retweeted = YES;
+}
+
+- (void)undoRetweet
+{
+    TwitterClient *twitterClient = [TwitterClient instance];
+    //long long retweetId = self.tweet.retweetId;
+    //[twitterClient unretweetWithId:retweetId success:nil failure:nil];
+    
+    self.tweet.retweeted = NO;
 }
 
 @end
