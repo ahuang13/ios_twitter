@@ -20,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *timestampLabel;
 @property (weak, nonatomic) IBOutlet UILabel *numRetweetsLabel;
 @property (weak, nonatomic) IBOutlet UILabel *numFavoritesLabel;
+@property (weak, nonatomic) IBOutlet UIButton *favoriteButton;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *retweetLabelHeightConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *retweetLabelTopConstraint;
 @property (weak, nonatomic) IBOutlet UILabel *retweetedLabel;
@@ -84,6 +85,7 @@
         self.retweetedLabel.text = [NSString stringWithFormat:@"%@ retweeted", self.tweet.originalName];
     }
     
+    [self.favoriteButton setSelected:self.tweet.favorited];
 }
 
 - (void)didReceiveMemoryWarning
@@ -101,10 +103,16 @@
 
 - (IBAction)onFavoriteClicked:(UIButton *)sender
 {
-    // Toggle the selected state.
-    [sender setSelected:!sender.isSelected];
+    // Set the favorited property on the Tweet.
+    self.tweet.favorited = !self.tweet.favorited;
     
+    // Toggle the selected state of the star button.
+    [sender setSelected:self.tweet.favorited];
+    
+    // Post the favorite or unfavorite request.
     TwitterClient *twitterClient = [TwitterClient instance];
-    [twitterClient favoriteTweetWithId:self.tweet.tweetId success:nil failure:nil];
+    if (self.tweet.favorited) {
+        [twitterClient favoriteTweetWithId:self.tweet.tweetId success:nil failure:nil];
+    }
 }
 @end

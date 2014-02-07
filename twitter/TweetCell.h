@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *timestampLabel;
 @property (weak, nonatomic) IBOutlet UILabel *retweetedLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *retweetedIcon;
+@property (weak, nonatomic) IBOutlet UIButton *favoriteButton;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *retweetedViewHeightConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *retweetedViewTopConstraint;
 

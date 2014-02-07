@@ -69,6 +69,8 @@
                         <state key="normal" image="28-star">
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
+                        <state key="selected" image="28-star-highlighted"/>
+                        <state key="highlighted" image="28-star-highlighted"/>
                     </button>
                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="12/21/13" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Qa-20-KFP">
                         <rect key="frame" x="266" y="31" width="42" height="12"/>
@@ -136,6 +138,7 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="favoriteButton" destination="hah-bf-jDO" id="sxJ-Lr-V4b"/>
                 <outlet property="nameLabel" destination="IMM-dy-zzq" id="wIh-SR-Hcp"/>
                 <outlet property="profileImageView" destination="7ki-9M-Wjx" id="O2w-kq-qKv"/>
                 <outlet property="retweetedIcon" destination="GqX-HY-Qhi" id="idd-8K-qpe"/>
@@ -152,5 +155,6 @@
         <image name="111-user" width="24" height="21"/>
         <image name="14-tag" width="22" height="22"/>
         <image name="28-star" width="26" height="26"/>
+        <image name="28-star-highlighted" width="26" height="26"/>
     </resources>
 </document>

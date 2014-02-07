@@ -113,6 +113,10 @@
         cell.retweetedLabel.text = [NSString stringWithFormat:@"%@ retweeted", tweet.originalName];
     }
     
+    NSLog(@"favorited = %d", tweet.favorited);
+    
+    [cell.favoriteButton setSelected:tweet.favorited];
+    
     return cell;
 }
 
@@ -209,7 +213,7 @@
 {
     self.isLoading = YES;
     [[TwitterClient instance] homeTimelineWithCount:20 sinceId:nil maxId:0 success:^(AFHTTPRequestOperation *operation, id response) {
-        NSLog(@"%@", response);
+        // NSLog(@"%@", response);
         self.tweets = [Tweet tweetsWithArray:response];
         [self.refreshControl endRefreshing];
         [self.tableView reloadData];
