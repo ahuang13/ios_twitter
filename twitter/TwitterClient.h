@@ -14,13 +14,20 @@
 
 // Users API
 
-- (void)authorizeWithCallbackUrl:(NSURL *)callbackUrl success:(void (^)(AFOAuth1Token *accessToken, id responseObject))success failure:(void (^)(NSError *error))failure;
+- (void)authorizeWithCallbackUrl:(NSURL *)callbackUrl
+                         success:(void (^)(AFOAuth1Token *accessToken, id responseObject))success
+                         failure:(void (^)(NSError *error))failure;
 
-- (void)currentUserWithSuccess:(void (^)(AFHTTPRequestOperation *operation, id response))success failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+- (void)currentUserWithSuccess:(void (^)(AFHTTPRequestOperation *operation, id response))success
+                       failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
 // Statuses API
 
-- (void)homeTimelineWithCount:(int)count sinceId:(NSString *)sinceId maxId:(long long)maxId success:(void (^)(AFHTTPRequestOperation *operation, id response))success failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
+- (void)homeTimelineWithCount:(int)count
+                      sinceId:(NSString *)sinceId
+                        maxId:(long long)maxId
+                      success:(void (^)(AFHTTPRequestOperation *operation, id response))success
+                      failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
 // Favorites API
 

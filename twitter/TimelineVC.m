@@ -14,6 +14,8 @@
 #import "ComposeVC.h"
 #import "UINavigationController+Twitter.h"
 #import "SVPullToRefresh.h"
+#import "Notification.h"
+#import "UIViewController+TweetController.h"
 
 @interface TimelineVC ()
 
@@ -65,6 +67,16 @@
     if (self.isLoading) {
         [self.refreshControl beginRefreshing];
     }
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(onNewPostTweetedNotification:)
+                                                 name:NewTweetPosted
+                                               object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(onTweetFavoritedNotification:)
+                                                 name:FavoriteStatusUpdated
+                                               object:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -97,6 +109,13 @@
 {
     // Get a reference to the TweetCell.
     TweetCell *cell = [TimelineVC nextTweetCellForTableView:tableView];
+    
+    // Set the row index on the cell.
+    [cell setTag:indexPath.row];
+    
+    // Set the button action handlers.
+    [cell.replyButton setTag:indexPath.row];
+    [cell.replyButton addTarget:self action:@selector(onReplyClicked:) forControlEvents:UIControlEventTouchUpInside];
     
     // Get the current Tweet.
     Tweet *tweet = self.tweets[indexPath.row];
@@ -196,21 +215,42 @@
 
 - (void)onSignOutButton
 {
-    //[User setCurrentUser:nil];
-    // TODO: show signout view controller
-    
-    [self loadMore];
+    [User setCurrentUser:nil];
 }
 
 - (void)onNewClicked
 {
     NSLog(@"onNewClicked");
     
-    ComposeVC *composeVC = [[ComposeVC alloc] initWithNibName:@"ComposeVC" bundle:nil];
+    ComposeVC *composeVC = [[ComposeVC alloc] init];
     UINavigationController *composeNVC = [[UINavigationController alloc] initWithRootViewController:composeVC];
     [composeNVC setTwitterNavigationBarStyle];
     [[self navigationController] presentViewController:composeNVC animated:YES completion:nil];
 }
+
+- (void)onReplyClicked:(UIButton *)sender
+{
+    NSInteger index = sender.tag;
+    Tweet *tweet = self.tweets[index];
+    
+    [self onReplyToTweet:tweet];
+}
+
+- (void)onNewPostTweetedNotification:(NSNotification *) notification
+{
+    Tweet *tweet = notification.object;
+    
+    NSLog(@"onNewPostTweetedNotification : %@", tweet.text);
+    
+    [self.tweets insertObject:tweet atIndex:0];
+    [self.tableView reloadData];
+}
+
+- (void)onTweetFavoritedNotification:(NSNotification *) notification
+{
+    [self.tableView reloadData];
+}
+
 
 - (void)reload
 {

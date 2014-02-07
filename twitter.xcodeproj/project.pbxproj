@@ -37,6 +37,8 @@
 		92AB706A18A2B564006CDECE /* UINavigationController+Twitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 92AB706918A2B564006CDECE /* UINavigationController+Twitter.m */; };
 		92AB706D18A2B682006CDECE /* UIColor+Twitter.m in Sources */ = {isa = PBXBuildFile; fileRef = 92AB706C18A2B682006CDECE /* UIColor+Twitter.m */; };
 		92E77FF018A055EC00CD2F19 /* NSDate+Timestamp.m in Sources */ = {isa = PBXBuildFile; fileRef = 92E77FEF18A055EC00CD2F19 /* NSDate+Timestamp.m */; };
+		92EFA7EA18A55CF9005640B0 /* Notification.m in Sources */ = {isa = PBXBuildFile; fileRef = 92EFA7E918A55CF9005640B0 /* Notification.m */; };
+		92EFA7ED18A569A1005640B0 /* UIViewController+TweetController.m in Sources */ = {isa = PBXBuildFile; fileRef = 92EFA7EC18A569A1005640B0 /* UIViewController+TweetController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -98,6 +100,10 @@
 		92AB706C18A2B682006CDECE /* UIColor+Twitter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Twitter.m"; sourceTree = "<group>"; };
 		92E77FEE18A055EC00CD2F19 /* NSDate+Timestamp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Timestamp.h"; sourceTree = "<group>"; };
 		92E77FEF18A055EC00CD2F19 /* NSDate+Timestamp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Timestamp.m"; sourceTree = "<group>"; };
+		92EFA7E818A55CF9005640B0 /* Notification.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Notification.h; sourceTree = "<group>"; };
+		92EFA7E918A55CF9005640B0 /* Notification.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Notification.m; sourceTree = "<group>"; };
+		92EFA7EB18A569A1005640B0 /* UIViewController+TweetController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+TweetController.h"; sourceTree = "<group>"; };
+		92EFA7EC18A569A1005640B0 /* UIViewController+TweetController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+TweetController.m"; sourceTree = "<group>"; };
 		CCC1DF52D3B94E9285F4C2F7 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -248,6 +254,8 @@
 			isa = PBXGroup;
 			children = (
 				42CC89B617B0D7C400B6D34B /* Categories */,
+				92EFA7E818A55CF9005640B0 /* Notification.h */,
+				92EFA7E918A55CF9005640B0 /* Notification.m */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -263,6 +271,8 @@
 				92AB706918A2B564006CDECE /* UINavigationController+Twitter.m */,
 				92AB706B18A2B682006CDECE /* UIColor+Twitter.h */,
 				92AB706C18A2B682006CDECE /* UIColor+Twitter.m */,
+				92EFA7EB18A569A1005640B0 /* UIViewController+TweetController.h */,
+				92EFA7EC18A569A1005640B0 /* UIViewController+TweetController.m */,
 			);
 			name = Categories;
 			sourceTree = "<group>";
@@ -409,12 +419,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92EFA7EA18A55CF9005640B0 /* Notification.m in Sources */,
 				42CC89B917B0D7DD00B6D34B /* NSDictionary+CPAdditions.m in Sources */,
 				42CC89AA17B0C31900B6D34B /* SignedOutVC.m in Sources */,
 				92E77FF018A055EC00CD2F19 /* NSDate+Timestamp.m in Sources */,
 				42CC896117AF871500B6D34B /* TwitterClient.m in Sources */,
 				42CC89BF17B0F02600B6D34B /* TweetCell.m in Sources */,
 				42CC89AE17B0C7A600B6D34B /* User.m in Sources */,
+				92EFA7ED18A569A1005640B0 /* UIViewController+TweetController.m in Sources */,
 				42CC89B117B0C7B800B6D34B /* Tweet.m in Sources */,
 				42CC89B417B0D63C00B6D34B /* RestObject.m in Sources */,
 				92AB706618A1DBFD006CDECE /* ComposeVC.m in Sources */,

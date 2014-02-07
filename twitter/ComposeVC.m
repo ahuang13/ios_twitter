@@ -8,6 +8,7 @@
 
 #import "ComposeVC.h"
 #import "UIImageView+AFNetworking.h"
+#import "Notification.h"
 
 @interface ComposeVC ()
 
@@ -15,14 +16,36 @@
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *screenNameLabel;
 @property (weak, nonatomic) IBOutlet UITextView *tweetTextView;
+
 @property (strong, nonatomic) UIBarButtonItem *charCountBarButtonItem;
 @property (strong, nonatomic) UIBarButtonItem *tweetBarButtonItem;
 
+@property (strong, nonatomic) Tweet *replyToTweet;
 @end
 
 @implementation ComposeVC
 
 static const NSInteger MAX_CHARS = 140;
+
+- (id)init
+{
+    self = [super initWithNibName:@"ComposeVC" bundle:nil];
+
+    if (self) {
+        // Custom initialization
+    }
+    return self;
+}
+
+- (id)initReplyToTweet:(Tweet *)tweet
+{
+    self = [super initWithNibName:@"ComposeVC" bundle:nil];
+    
+    if (self) {
+        self.replyToTweet = tweet;
+    }
+    return self;
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -44,20 +67,51 @@ static const NSInteger MAX_CHARS = 140;
     self.screenNameLabel.text = [NSString stringWithFormat:@"@%@", currentUser.screenName];
     [self.profileImageView setImageWithURL:currentUser.profileImageUrl];
     
+    [self initTextView];
+    
+    [self initBarButtonItems];
+}
+
+- (void)initTextView
+{
+    if (self.replyToTweet) {
+        
+        NSString *screenName1 = self.replyToTweet.screenName;
+        NSString *screenName2 = self.replyToTweet.originalScreenName;
+        
+        if ([screenName1 isEqualToString:screenName2]) {
+            self.tweetTextView.text = [NSString stringWithFormat:@"@%@ ", screenName1];
+        } else {
+            self.tweetTextView.text = [NSString stringWithFormat:@"@%@ @%@ ", screenName1, screenName2];
+        }
+    }
+    
     // Set the TextView delegate to this class.
     self.tweetTextView.delegate = self;
-    
+}
+
+- (void)initBarButtonItems
+{
     // Add the character count bar button items (e.g. "140 Tweet").
-    self.charCountBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"140" style:UIBarButtonItemStylePlain target:nil action:nil];
+    self.charCountBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"140"
+                                                                   style:UIBarButtonItemStylePlain
+                                                                  target:nil
+                                                                  action:nil];
     self.charCountBarButtonItem.enabled = NO;
-    self.tweetBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Tweet" style:UIBarButtonItemStylePlain target:self action:@selector(onTweetClicked)];
+    self.tweetBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Tweet"
+                                                               style:UIBarButtonItemStylePlain
+                                                              target:self
+                                                              action:@selector(onTweetClicked)];
     self.tweetBarButtonItem.enabled = NO;
     
     NSArray *rightBarButtonItems = [NSArray arrayWithObjects:self.tweetBarButtonItem, self.charCountBarButtonItem, nil];
     [self.navigationItem setRightBarButtonItems:rightBarButtonItems];
     
     // Add the cancel bar button item.
-    UIBarButtonItem *cancelBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(onCancelClicked)];
+    UIBarButtonItem *cancelBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Cancel"
+                                                                            style:UIBarButtonItemStylePlain
+                                                                           target:self
+                                                                           action:@selector(onCancelClicked)];
     [self.navigationItem setLeftBarButtonItem:cancelBarButtonItem];
 }
 
@@ -110,8 +164,26 @@ static const NSInteger MAX_CHARS = 140;
 
 - (void)onTweetClicked
 {
-    // TODO
     [self dismissViewControllerAnimated:YES completion:nil];
+    
+    void (^success)(AFHTTPRequestOperation *, id) = ^void(AFHTTPRequestOperation *operation, id response)
+    {
+        NSLog(@"onTweetClicked : success\n%@", response);
+        
+        Tweet *postedTweet = [[Tweet alloc] initWithDictionary:response];
+        NSLog(@"postedTweet : %@", postedTweet.text);
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:NewTweetPosted
+                                                            object:postedTweet];
+    };
+    
+    void (^failure)(AFHTTPRequestOperation *, NSError *) = ^void(AFHTTPRequestOperation *operation, NSError *error)
+    {
+        NSLog(@"onTweetClicked : failure\n%@", error);
+    };
+
+    TwitterClient *twitterClient = [TwitterClient instance];
+    [twitterClient tweet:self.tweetTextView.text success:success failure:failure];
 }
 
 @end

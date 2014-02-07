@@ -10,4 +10,6 @@
 
 @interface ComposeVC : UIViewController <UITextViewDelegate>
 
+- (id)initReplyToTweet:(Tweet *)tweet;
+
 @end

@@ -17,7 +17,8 @@ static NSString * const kAccessTokenKey = @"kAccessTokenKey";
 
 @implementation TwitterClient
 
-+ (TwitterClient *)instance {
++ (TwitterClient *)instance
+{
     static dispatch_once_t once;
     static TwitterClient *instance;
     
@@ -28,7 +29,8 @@ static NSString * const kAccessTokenKey = @"kAccessTokenKey";
     return instance;
 }
 
-- (id)initWithBaseURL:(NSURL *)url key:(NSString *)key secret:(NSString *)secret {
+- (id)initWithBaseURL:(NSURL *)url key:(NSString *)key secret:(NSString *)secret
+{
     self = [super initWithBaseURL:TWITTER_BASE_URL key:TWITTER_CONSUMER_KEY secret:TWITTER_CONSUMER_SECRET];
     if (self != nil) {
         [self registerHTTPOperationClass:[AFJSONRequestOperation class]];
@@ -43,7 +45,8 @@ static NSString * const kAccessTokenKey = @"kAccessTokenKey";
 
 #pragma mark - Users API
 
-- (void)authorizeWithCallbackUrl:(NSURL *)callbackUrl success:(void (^)(AFOAuth1Token *accessToken, id responseObject))success failure:(void (^)(NSError *error))failure {
+- (void)authorizeWithCallbackUrl:(NSURL *)callbackUrl success:(void (^)(AFOAuth1Token *accessToken, id responseObject))success failure:(void (^)(NSError *error))failure
+{
     self.accessToken = nil;
     [super authorizeUsingOAuthWithRequestTokenPath:@"oauth/request_token" userAuthorizationPath:@"oauth/authorize" callbackURL:callbackUrl accessTokenPath:@"oauth/access_token" accessMethod:@"POST" scope:nil success:success failure:failure];
 }
@@ -54,7 +57,8 @@ static NSString * const kAccessTokenKey = @"kAccessTokenKey";
 
 #pragma mark - Statuses API
 
-- (void)homeTimelineWithCount:(int)count sinceId:(NSString *)sinceId maxId:(long long)maxId success:(void (^)(AFHTTPRequestOperation *operation, id response))success failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure {
+- (void)homeTimelineWithCount:(int)count sinceId:(NSString *)sinceId maxId:(long long)maxId success:(void (^)(AFHTTPRequestOperation *operation, id response))success failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure
+{
     NSMutableDictionary *params = [NSMutableDictionary dictionaryWithDictionary:@{@"count": @(count)}];
     if (sinceId) {
         [params setObject:sinceId forKey:@"since_id"];
@@ -137,7 +141,8 @@ static NSString * const kAccessTokenKey = @"kAccessTokenKey";
 
 #pragma mark - Private methods
 
-- (void)setAccessToken:(AFOAuth1Token *)accessToken {
+- (void)setAccessToken:(AFOAuth1Token *)accessToken
+{
     [super setAccessToken:accessToken];
     
     if (accessToken) {

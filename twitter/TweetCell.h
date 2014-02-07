@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *retweetedIcon;
 @property (weak, nonatomic) IBOutlet UIButton *favoriteButton;
 @property (weak, nonatomic) IBOutlet UIButton *retweetButton;
+@property (weak, nonatomic) IBOutlet UIButton *replyButton;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *retweetedViewHeightConstraint;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *retweetedViewTopConstraint;
 

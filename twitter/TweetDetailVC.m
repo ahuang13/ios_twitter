@@ -8,6 +8,10 @@
 
 #import "TweetDetailVC.h"
 #import "UIImageView+AFNetworking.h"
+#import "ComposeVC.h"
+#import "UINavigationController+Twitter.h"
+#import "Notification.h"
+#import "UIViewController+TweetController.h"
 
 @interface TweetDetailVC ()
 
@@ -28,6 +32,7 @@
 
 - (IBAction)onFavoriteClicked:(UIButton *)sender;
 - (IBAction)onRetweetClicked:(UIButton *)sender;
+- (IBAction)onReplyClicked:(UIButton *)sender;
 
 @end
 
@@ -62,7 +67,7 @@ static const int UNDO_RETWEET_ALERT_TAG = 2;
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Reply"
                                                                               style:UIBarButtonItemStylePlain
                                                                              target:self
-                                                                             action:@selector(onReplyClicked)];
+                                                                             action:@selector(onBarReplyClicked)];
 }
 
 - (void)viewDidLoad
@@ -150,13 +155,16 @@ static const int UNDO_RETWEET_ALERT_TAG = 2;
     }
 }
 
+- (IBAction)onReplyClicked:(UIButton *)sender
+{
+    [self onReplyToTweet:self.tweet];
+}
+
 #pragma mark - Private Methods
 
-- (void)onReplyClicked
+- (void)onBarReplyClicked
 {
-    NSLog(@"onReplyClicked");
-    
-    
+    [self onReplyToTweet:self.tweet];
 }
 
 - (void)favoriteCountAdd:(NSInteger)count
@@ -165,6 +173,9 @@ static const int UNDO_RETWEET_ALERT_TAG = 2;
     self.tweet.favoriteCount = [NSNumber numberWithInteger:newFavoriteCount];
     
     self.numFavoritesLabel.text = [self.tweet.favoriteCount stringValue];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:FavoriteStatusUpdated
+                                                        object:nil];
 }
 
 - (void)showRetweetAlert
@@ -228,6 +239,7 @@ static const int UNDO_RETWEET_ALERT_TAG = 2;
 
 - (void)undoRetweet
 {
+    // TODO
     TwitterClient *twitterClient = [TwitterClient instance];
     //long long retweetId = self.tweet.retweetId;
     //[twitterClient unretweetWithId:retweetId success:nil failure:nil];

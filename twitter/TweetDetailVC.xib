@@ -177,6 +177,9 @@
                     <state key="normal" image="14-tag">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <connections>
+                        <action selector="onReplyClicked:" destination="-1" eventType="touchUpInside" id="sqU-x2-BMR"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EEx-m8-rYI">
                     <rect key="frame" x="153" y="219" width="15" height="15"/>
